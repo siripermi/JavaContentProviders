@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.example.provider.BaseProvider;
 import org.example.provider.db.BaseDao;
 import org.example.provider.db.DatabaseHelper;
 
-public class SQLiteConnectionExample {
+public class SQLiteConnectionExample extends BaseProvider {
 
     private static final String BROKER_URL = "tcp://localhost:1883"; // MQTT broker address
     private static final String CLIENT_ID = "JavaSample"; // Client ID
@@ -198,4 +199,18 @@ public class SQLiteConnectionExample {
         }
     }
 
+    @Override
+    protected String getTableName() {
+        return "";
+    }
+
+    @Override
+    protected long incrementTcc() {
+        return 0;
+    }
+
+    @Override
+    public long getTcc() {
+        return 0;
+    }
 }

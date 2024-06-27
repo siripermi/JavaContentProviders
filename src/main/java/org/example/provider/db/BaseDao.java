@@ -1,10 +1,12 @@
 package org.example.provider.db;
 
+import org.example.provider.BaseProvider;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
 
-public class BaseDao {
+public abstract class BaseDao extends BaseProvider {
     public static void create(){
 
     }
@@ -32,9 +34,11 @@ public class BaseDao {
                 }
             }
             if(noresultSet){
-                pstmt.executeUpdate();
+                insert(pstmt);
+                //pstmt.executeUpdate();
             }else {
-                resultSet = pstmt.executeQuery();
+              //  resultSet = pstmt.executeQuery();
+              resultSet = insert(pstmt);
             }
         } catch (Exception e) {
             System.err.println("SQLite JDBC Driver not found.");
