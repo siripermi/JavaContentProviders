@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class DatabaseHelper {
     private static final String DB_FILE_PATH = "";
-    public static final String DATABASE_NAME = "/iq2remote.db";
+    public static final String DATABASE_NAME = "iq2remote.db";
     private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_NAME;
     private Connection connection = null;
     private static DatabaseHelper databaseHelper = null;
