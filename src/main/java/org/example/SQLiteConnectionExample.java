@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.example.provider.db.BaseDao;
 import org.example.provider.db.DatabaseHelper;
 
 public class SQLiteConnectionExample {
@@ -17,6 +18,7 @@ public class SQLiteConnectionExample {
     private static MqttClient mqttClient = null;
 
     public static void main(String[] args) {
+        DatabaseHelper.getInstance();
         //connect mqtt
         connectToMqtt();
     }
@@ -84,7 +86,7 @@ public class SQLiteConnectionExample {
             System.out.println("Subscribed to topic: " + TOPIC);
 
             System.out.println("Subscribed to topic: " + TOPIC);
-            while (true) {
+           // while (true) {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("enter your operation to perform : ");
 
@@ -115,7 +117,7 @@ public class SQLiteConnectionExample {
                     default:
                         publishMessage("all");
                 }
-            }
+           // }
 
             /*//print
             for(int i =0 ;i<100;i++) {
@@ -145,7 +147,7 @@ public class SQLiteConnectionExample {
         Map<Integer, String> queryParams = new HashMap<>();
         queryParams.put(1, key);
         queryParams.put(2, value);
-        queryDB(sqlInsert,queryParams,true);
+        BaseDao.queryDB(sqlInsert,queryParams,true);
     }
     private static void updateData(String key, String value) {
         String sqlUpdate = "UPDATE profile SET value = ? WHERE name = ?";
@@ -156,14 +158,14 @@ public class SQLiteConnectionExample {
         String selection = "name = ?";
         String[] selectionArgs = new String[] {key,value};
 
-        queryDB(sqlUpdate,queryParams,true);
+        BaseDao.queryDB(sqlUpdate,queryParams,true);
     }
 
     private static void deleteData(String key, String value) {
         String sqlDelete = "DELETE FROM profile WHERE name = ?";
         Map<Integer, String> queryParams = new HashMap<>();
         queryParams.put(1, key);
-        queryDB(sqlDelete,queryParams,true);
+        BaseDao.queryDB(sqlDelete,queryParams,true);
     }
 
     private static void getSpecificData(String key, String value){
@@ -180,7 +182,7 @@ public class SQLiteConnectionExample {
 
     private static void getData(String sql, Map<Integer, String> queryParams) {
 
-        ResultSet resultSet = queryDB(sql, queryParams,false);
+        ResultSet resultSet = BaseDao.queryDB(sql, queryParams,false);
         if (resultSet == null) {
             System.out.println("error");
             return;

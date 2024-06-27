@@ -5,9 +5,9 @@ import org.example.provider.constants.DbConstants;
 import java.sql.*;
 
 public class DatabaseHelper {
-    private static final String DB_FILE_PATH = "/home/qolsysjci/siri/javaProjects/";
-    public static final String DATABASE_NAME = "iq2remote.db";
-    private static final String DATABASE_URL = "jdbc:sqlite:" + DB_FILE_PATH + DATABASE_NAME;
+    private static final String DB_FILE_PATH = "";
+    public static final String DATABASE_NAME = "/iq2remote.db";
+    private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_NAME;
     private Connection connection = null;
     private static DatabaseHelper databaseHelper = null;
     private DatabaseHelper(String databaseName, int version) {
@@ -16,22 +16,22 @@ public class DatabaseHelper {
             System.out.println("Not connected to db");
             return;
         }
-        try {
-            onOpen(connection);
-            int currentVersion = getDatabaseVersion(connection);
-            if (currentVersion == 0) {
-                onCreate(connection);
-                setDatabaseVersion(connection, DbUpgradeManager.DATABASE_VERSION);
-            } else if (currentVersion < DbUpgradeManager.DATABASE_VERSION) {
-                onUpgrade(connection, currentVersion, DbUpgradeManager.DATABASE_VERSION);
-                setDatabaseVersion(connection, DbUpgradeManager.DATABASE_VERSION);
-            } else if (currentVersion > DbUpgradeManager.DATABASE_VERSION) {
-                onDowngrade(connection, currentVersion, DbUpgradeManager.DATABASE_VERSION);
-                setDatabaseVersion(connection, DbUpgradeManager.DATABASE_VERSION);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            onOpen(connection);
+//            int currentVersion = getDatabaseVersion(connection);
+//            if (currentVersion == 0) {
+//                onCreate(connection);
+//                setDatabaseVersion(connection, DbUpgradeManager.DATABASE_VERSION);
+//            } else if (currentVersion < DbUpgradeManager.DATABASE_VERSION) {
+//                onUpgrade(connection, currentVersion, DbUpgradeManager.DATABASE_VERSION);
+//                setDatabaseVersion(connection, DbUpgradeManager.DATABASE_VERSION);
+//            } else if (currentVersion > DbUpgradeManager.DATABASE_VERSION) {
+//                onDowngrade(connection, currentVersion, DbUpgradeManager.DATABASE_VERSION);
+//                setDatabaseVersion(connection, DbUpgradeManager.DATABASE_VERSION);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("Connected to SQLite database.");
     }
     private void onCreate(Connection connection) throws SQLException {
@@ -94,7 +94,7 @@ public class DatabaseHelper {
     }
 
     public Connection getConnection() throws SQLException {
-        return connectDb();
+        return connection;
     }
 
     public void beginTransaction(Connection connection) throws SQLException {

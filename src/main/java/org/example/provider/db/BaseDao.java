@@ -21,7 +21,7 @@ public class BaseDao {
     }
 
 
-    private static ResultSet queryDB(String sql, Map<Integer, String> queryParams, boolean noresultSet) {
+    public static ResultSet queryDB(String sql, Map<Integer, String> queryParams, boolean noresultSet) {
         ResultSet resultSet = null;
         PreparedStatement pstmt = null;
         try{
